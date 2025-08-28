@@ -5,3 +5,4 @@ docker run --name arsmedicatech-backend --rm --pull always -p 8700:8000 -v ./myd
 
 .\.venv\Scripts\activate
 python app.py --host=0.0.0.0 --port=3123
+
