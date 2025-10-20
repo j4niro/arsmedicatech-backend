@@ -1,5 +1,6 @@
 """"""
 import os
+import logging
 from os.path import dirname, join
 
 from dotenv import load_dotenv
@@ -20,7 +21,7 @@ SURREALDB_PASS = os.environ.get("SURREALDB_PASS")
 
 SURREALDB_PROTOCOL = os.environ.get("SURREALDB_PROTOCOL", 'ws')
 SURREALDB_HOST = os.environ.get("SURREALDB_HOST", 'localhost')
-SURREALDB_PORT = os.environ.get("SURREALDB_PORT", 8700)
+SURREALDB_PORT = os.environ.get("SURREALDB_PORT", 8000)
 
 SURREALDB_URL = f"{SURREALDB_PROTOCOL}://{SURREALDB_HOST}:{SURREALDB_PORT}"
 
@@ -67,10 +68,13 @@ REDIS_PORT = int(os.environ.get('REDIS_PORT', 6379))
 NOTIFICATIONS_CHANNEL = 0
 UPLOADS_CHANNEL = 1
 
-SENTRY_DSN = os.environ.get('SENTRY_DSN', None)
-if not SENTRY_DSN:
-    logger.error("SENTRY_DSN is not set. Sentry will not be initialized.")
-    raise ValueError("SENTRY_DSN must be set in settings.py or environment variable")
+SENTRY_DSN = os.getenv('SENTRY_DSN')
+if SENTRY_DSN:
+    import sentry_sdk
+    sentry_sdk.init(dsn=SENTRY_DSN)
+    logging.info("✅ Sentry initialized successfully.")
+else:
+    logging.warning("⚠️  SENTRY_DSN not set — skipping Sentry initialization.")
 
 DEMO_ADMIN_USERNAME = os.environ.get('DEMO_ADMIN_USERNAME', 'admin')
 DEMO_ADMIN_PASSWORD = os.environ.get('DEMO_ADMIN_PASSWORD', 'admin')
