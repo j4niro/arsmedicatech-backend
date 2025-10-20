@@ -1,6 +1,7 @@
 """"""
 
 import os
+import logging
 from os.path import dirname, join
 
 from dotenv import load_dotenv
@@ -22,6 +23,7 @@ SURREALDB_PASS = os.environ.get("SURREALDB_PASS")
 SURREALDB_PROTOCOL = os.environ.get("SURREALDB_PROTOCOL", "ws")
 SURREALDB_HOST = os.environ.get("SURREALDB_HOST", "localhost")
 SURREALDB_PORT = os.environ.get("SURREALDB_PORT", 8700)
+
 
 SURREALDB_URL = f"{SURREALDB_PROTOCOL}://{SURREALDB_HOST}:{SURREALDB_PORT}"
 
@@ -80,6 +82,7 @@ SENTRY_DSN = os.environ.get("SENTRY_DSN", None)
 if not SENTRY_DSN:
     logger.error("SENTRY_DSN is not set. Sentry will not be initialized.")
     raise ValueError("SENTRY_DSN must be set in settings.py or environment variable")
+
 
 DEMO_ADMIN_USERNAME = os.environ.get("DEMO_ADMIN_USERNAME", "admin")
 DEMO_ADMIN_PASSWORD = os.environ.get("DEMO_ADMIN_PASSWORD", "admin")
