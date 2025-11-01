@@ -96,24 +96,5 @@ L’API sera disponible à :
 
 ---
 
-## 🔗 Intégration avec le frontend
 
-Assurez-vous que le **frontend** est configuré avec la même `API_URL` :
 
-```ini
-API_URL=http://localhost:3123
-```
-
----
-
-## 👥 Auteurs & contributeurs
-
-- 👨‍💻 **Équipe ArsMedicaTech**
-- 💡 Contributions open-source bienvenues  
-  👉 [https://github.com/ton-profil/arsmedicatech-backend](https://github.com/ton-profil/arsmedicatech-backend)
-
----
-
-## 📜 Licence
-
-Projet distribué sous la licence **MIT**.
