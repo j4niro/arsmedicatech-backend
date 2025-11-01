@@ -1,7 +1,6 @@
 """"""
 
 import os
-import logging
 from os.path import dirname, join
 
 from dotenv import load_dotenv
@@ -19,13 +18,14 @@ SURREALDB_NAMESPACE = os.environ.get("SURREALDB_NAMESPACE")
 SURREALDB_DATABASE = os.environ.get("SURREALDB_DATABASE")
 SURREALDB_USER = os.environ.get("SURREALDB_USER")
 SURREALDB_PASS = os.environ.get("SURREALDB_PASS")
+#  Lecture directe de SURREALDB_URL si elle est définie dans le .env
+SURREALDB_URL = os.environ.get("SURREALDB_URL")
 
 SURREALDB_PROTOCOL = os.environ.get("SURREALDB_PROTOCOL", "ws")
 SURREALDB_HOST = os.environ.get("SURREALDB_HOST", "localhost")
 SURREALDB_PORT = os.environ.get("SURREALDB_PORT", 8700)
 
 
-SURREALDB_URL = f"{SURREALDB_PROTOCOL}://{SURREALDB_HOST}:{SURREALDB_PORT}"
 
 SURREALDB_ICD_DB = os.environ.get("SURREALDB_ICD_DB", "diagnosis")
 
@@ -58,6 +58,7 @@ MIGRATION_OPENAI_API_KEY = os.environ.get(
     "MIGRATION_OPENAI_API_KEY", "sk-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 )
 
+
 FLASK_SECRET_KEY = "secret key"
 
 BASE_URL = os.environ.get("BASE_URL", "http://127.0.0.1:3123/api")
@@ -77,6 +78,7 @@ REDIS_PORT = int(os.environ.get("REDIS_PORT", 6379))
 
 NOTIFICATIONS_CHANNEL = 0
 UPLOADS_CHANNEL = 1
+
 
 SENTRY_DSN = os.environ.get("SENTRY_DSN", None)
 if not SENTRY_DSN:

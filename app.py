@@ -156,13 +156,13 @@ from settings import (
 
 # from flask_jwt_extended import jwt_required, get_jwt_identity
 
+import sentry_sdk
+from settings import SENTRY_DSN
 
-sentry_sdk.init(
-    dsn=SENTRY_DSN,
-    # Add data like request headers and IP for users,
-    # see https://docs.sentry.io/platforms/python/data-management/data-collected/ for more info
-    send_default_pii=True,
-)
+if SENTRY_DSN and SENTRY_DSN.startswith("http"):
+    sentry_sdk.init(dsn=SENTRY_DSN)
+else:
+    print("⚠️ Sentry désactivé (pas de DSN valide).")
 
 app = Flask(__name__)
 CORS(

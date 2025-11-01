@@ -203,23 +203,37 @@ class UserSettings:
 
     @staticmethod
     def validate_openai_api_key(api_key: str) -> tuple[bool, str]:
-        """
-        Validate OpenAI API key format
+      """
+    Validate an OpenAI API key format.
+    Supports both old and new formats (e.g., "sk-..." or "sk-proj-...").
+    Returns:
+         (bool, str): A tuple (is_valid, message)
+      """
+      import re
 
-        :param api_key: OpenAI API key to validate
-        :return: Tuple (is_valid: bool, error_message: str)
-        """
-        if not api_key:
-            return False, "OpenAI API key is required"
+    # 1️⃣ Vérifier si la clé est fournie
+      if not api_key:
+        return False, "OpenAI API key is required"
 
-        # Basic validation - OpenAI API keys start with 'sk-' and are 51 characters long
-        if not api_key.startswith("sk-"):
-            return False, "OpenAI API key must start with 'sk-'"
+    # 2️⃣ Toutes les clés OpenAI commencent par 'sk-'
+      if not api_key.startswith("sk-"):
+        return False, "OpenAI API key must start with 'sk-'"
 
-        if len(api_key) != 51:
-            return False, "OpenAI API key must be 51 characters long"
+    # 3️⃣ Vérifier le format autorisé (lettres, chiffres, tirets, underscores)
+      pattern = r"^sk-[A-Za-z0-9\-_]+$"
+      if not re.match(pattern, api_key):
+        return False, "OpenAI API key contains invalid characters"
 
-        return True, ""
+    # 4️⃣ Vérifier la longueur minimale et maximale
+      if len(api_key) < 20:
+        return False, "OpenAI API key appears too short"
+
+      if len(api_key) > 250:
+        logger.warning(f"Unusually long OpenAI API key ({len(api_key)} chars) accepted")
+
+    # ✅ Si tout est bon
+      return True, ""
+
 
     @staticmethod
     def validate_optimal_api_key(api_key: str) -> tuple[bool, str]:
