@@ -83,7 +83,7 @@ def create_appointment_route() -> Tuple[Response, int]:
                 notes=notes,
                 location=location
             )
-            
+            print('crete_app',appointment)
             if success:
                 assert appointment is not None, "Appointment should not be None"
 
@@ -203,7 +203,7 @@ def get_appointments_route() -> Tuple[Response, int]:
                     "created_at": appointment.created_at,
                     "updated_at": appointment.updated_at
                 })
-            
+            print('app2:',appointment.provider_id.split(":")[1])
             logger.debug(f"Returning {len(appointment_list)} appointments")
             return jsonify({
                 "success": True,
@@ -274,7 +274,7 @@ def get_appointment_route(appointment_id: str) -> Tuple[Response, int]:
             # Check if user has access to this appointment
             if appointment.provider_id != current_user.user_id and appointment.patient_id != current_user.user_id:
                 return jsonify({"error": "Access denied"}), 403
-            
+            print('app',appointment)
             return jsonify({
                 "success": True,
                 "appointment": {
